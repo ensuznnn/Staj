@@ -7,11 +7,14 @@ public class Aim : MonoBehaviour
     public Button aimButton;
     public Button attackButton;
     public bool inAim;
+    public bool inWait;
     public GameObject mainCamera;
     public GameObject aimCamera;
+    public GameObject crosshair;
+    public GameObject aimController;
+    public GameObject charecterController;
 
-
-    void Start()
+    public void Start()
     {
         Button aim = aimButton.GetComponent<Button>();
         Button attack = attackButton.GetComponent<Button>();
@@ -25,24 +28,33 @@ public class Aim : MonoBehaviour
         {
             if (!aimCamera.activeInHierarchy)
             {
+               
                 mainCamera.SetActive(false);
+                aimController.SetActive(true);
+                charecterController.SetActive(false);
                 aimCamera.SetActive(true);
+                crosshair.SetActive(true);
 
-                //Allow time for the camera to blend before enabling the UI
-                StartCoroutine(ShowReticle());
+
             }
 
             PlayerManager.instance.player.GetComponent<Animator>().SetBool("Fire", false);
             PlayerManager.instance.player.GetComponent<Animator>().SetBool("Aim", true);
             inAim = true;
 
+
         }
         else
         {
             if (!mainCamera.activeInHierarchy)
             {
+          
                 mainCamera.SetActive(true);
                 aimCamera.SetActive(false);
+                crosshair.SetActive(false);
+                aimController.SetActive(false);
+                charecterController.SetActive(true);
+
             }
             PlayerManager.instance.player.GetComponent<Animator>().SetBool("Fire", false);
             PlayerManager.instance.player.GetComponent<Animator>().SetBool("Aim", false);
@@ -52,14 +64,21 @@ public class Aim : MonoBehaviour
           
     public void AttackAnimation()
     {
+        
         PlayerManager.instance.player.GetComponent<Animator>().SetBool("Fire", true);
         PlayerManager.instance.player.GetComponent<Animator>().SetBool("Aim", false);
-        inAim = false;   
+        inAim = false;       
+        mainCamera.SetActive(true);
+        aimCamera.SetActive(false);
+        crosshair.SetActive(false);
+        aimController.SetActive(false);
+        charecterController.SetActive(true);
+
     }
 
-    IEnumerator ShowReticle()
+    IEnumerator Wait()
     {
-        yield return new WaitForSeconds(100);
-      //  aimReticle.SetActive(enabled);
+        Debug.Log("Wait");
+        yield return new WaitForSeconds(5.0f);   
     }
 }

@@ -21,6 +21,7 @@ public class ArrowProjectile : MonoBehaviour
         rBody = Instantiate(arrow,spawnPoint.transform.position, Quaternion.identity).gameObject.GetComponent<Rigidbody>();
         rBody.AddForce(transform.forward * (50 * Random.Range(1.3f, 1.7f)), ForceMode.Impulse);
         rBody.AddForce(transform.up * 2f, ForceMode.Impulse);
+        StartCoroutine(Wait());
 
     }
     /*
@@ -40,4 +41,10 @@ public class ArrowProjectile : MonoBehaviour
     }
 
     */
+
+    IEnumerator Wait()
+    {
+        Debug.Log("Wait");
+        yield return new WaitForSeconds(5.0f);
+    }
 }

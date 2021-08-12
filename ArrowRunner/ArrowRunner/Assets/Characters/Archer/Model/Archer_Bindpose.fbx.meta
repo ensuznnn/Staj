@@ -493,7 +493,7 @@ ModelImporter:
       name: Archer_char
     second: {fileID: 2100000, guid: 56536bae93ee26e44bdc5e12d7f96601, type: 2}
   materials:
-    materialImportMode: 1
+    materialImportMode: 2
     materialName: 0
     materialSearch: 1
     materialLocation: 1
