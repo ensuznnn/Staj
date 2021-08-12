@@ -2,53 +2,57 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class AimController : MonoBehaviour,IDragHandler, IPointerUpHandler, IPointerDownHandler
+public class AimController : MonoBehaviour
 {
-    //public Transform player;
-    Vector3 move;
-    public float moveSpeed;
-   // public Transform hips;
-    public RectTransform aimPad;
-    private Animator animator;
+    public GameObject followTransform;
+    public bool left;
+    public bool right;
+    public bool up;
+    public bool down;
 
-    void Start()
+    public void FixedUpdate()
     {
-        animator = PlayerManager.instance.player.GetComponent<Animator>();
+        if(left==true)
+        {
+            followTransform.transform.rotation *= Quaternion.AngleAxis(1, Vector3.down);
+            PlayerManager.instance.player.transform.rotation *= Quaternion.AngleAxis(1, Vector3.down);
+        }
+
+        if(right==true)
+        {
+            followTransform.transform.rotation *= Quaternion.AngleAxis(1, Vector3.up);
+            PlayerManager.instance.player.transform.rotation *= Quaternion.AngleAxis(1, Vector3.up);
+        }
+        if(up==true)
+        {
+            followTransform.transform.rotation *= Quaternion.AngleAxis(1, Vector3.left);
+        }
+        if (down == true)
+        {
+            followTransform.transform.rotation *= Quaternion.AngleAxis(1, Vector3.right);
+        }
     }
 
-    public void OnDrag(PointerEventData eventData)
+
+    public void leftRotate(bool _left)
     {
-        transform.position = eventData.position;
-        transform.localPosition =
-            Vector2.ClampMagnitude(eventData.position - (Vector2)aimPad.position, aimPad.rect.width * 0.5f);
-
-        move = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
-
+        left = _left;    
+    }
+    public void rightRotate(bool _right)
+    {
+        right = _right;    
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    public void upRotate(bool _up)
     {
-        transform.localPosition = Vector3.zero;
-        move = Vector3.zero;
-       // StopCoroutine("AimRotation");
+        up = _up;
+          
     }
-
-    public void OnPointerDown(PointerEventData eventData)
+    public void downRotate(bool _down)
     {
-      //  StartCoroutine("AimRotation");
-    }
-
-    // IEnumerator AimRotation()
-    // {
-
-    // }
-
-    private void OnAnimatorIK(int layerIndex)
-    {
-       
-        animator.SetBoneLocalRotation(HumanBodyBones.Chest, UnityEngine.Quaternion.Euler(transform.position.z,transform.position.x,transform.position.y));
-        
+        down = _down;     
     }
 
 }

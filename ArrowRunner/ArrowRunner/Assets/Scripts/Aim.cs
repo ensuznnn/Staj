@@ -23,6 +23,7 @@ public class Aim : MonoBehaviour
     }
     public void AimAnimation()
     {
+       
 
         if (inAim == false)
         {

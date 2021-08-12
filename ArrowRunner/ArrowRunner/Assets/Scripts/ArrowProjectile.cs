@@ -5,23 +5,22 @@ using UnityEngine;
 public class ArrowProjectile : MonoBehaviour
 {
     
-    public Rigidbody rBody;
-    public GameObject arrow;
-    public GameObject spawnPoint;
+    public Rigidbody rigidbody;
+    public float force;
+     Cinemachine.CinemachineImpulseSource source;
 
-
-    public void Update()
+    public void Awake()
     {
-        transform.position = spawnPoint.transform.position;
+        rigidbody = GetComponent<Rigidbody>();
+        rigidbody.centerOfMass = transform.position;
     }
 
     public void Fire()
     {
-        
-        rBody = Instantiate(arrow,spawnPoint.transform.position, Quaternion.identity).gameObject.GetComponent<Rigidbody>();
-        rBody.AddForce(transform.forward * (50 * Random.Range(1.3f, 1.7f)), ForceMode.Impulse);
-        rBody.AddForce(transform.up * 2f, ForceMode.Impulse);
-        StartCoroutine(Wait());
+
+        rigidbody.AddForce(transform.forward * (100 * Random.Range(1.3f, 1.7f)), ForceMode.Impulse);
+        source = GetComponent<Cinemachine.CinemachineImpulseSource>();
+        source.GenerateImpulse(Camera.main.transform.forward);
 
     }
     /*
@@ -42,9 +41,5 @@ public class ArrowProjectile : MonoBehaviour
 
     */
 
-    IEnumerator Wait()
-    {
-        Debug.Log("Wait");
-        yield return new WaitForSeconds(5.0f);
-    }
+   
 }
