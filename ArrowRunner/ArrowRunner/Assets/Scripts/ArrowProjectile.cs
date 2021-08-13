@@ -35,7 +35,7 @@ public class ArrowProjectile : MonoBehaviour
 
     IEnumerator Countdown()
     {
-        yield return new WaitForSeconds(100);
+        yield return new WaitForSeconds(10);
         Destroy(gameObject);
     }
 

@@ -18,11 +18,13 @@ public class PlayerMovements : MonoBehaviour
     public GameObject mainCamera;
     public GameObject aimCamera;
     public GameObject arrow;
+    private AimController aimUnLock;
     private void Start()
     {
         Button aim = aimButton.GetComponent<Button>();
         Button attack = attackButton.GetComponent<Button>();
-       
+        aimUnLock = PlayerManager.instance.player.GetComponent<AimController>();
+
     }
 
 
@@ -30,7 +32,9 @@ public class PlayerMovements : MonoBehaviour
     {
 
         if (inAim == false)
+
         {
+            aimUnLock.enabled = true;
             arrow.SetActive(true);
             aimController.SetActive(true);
             charecterController.SetActive(false);
@@ -43,6 +47,7 @@ public class PlayerMovements : MonoBehaviour
         }
         else
         {
+            aimUnLock.enabled = false;
             arrow.SetActive(false);
             crosshair.SetActive(false);
             aimController.SetActive(false);
@@ -57,17 +62,22 @@ public class PlayerMovements : MonoBehaviour
 
     public void AttackAnimation()
     {
-        
-        PlayerManager.instance.player.GetComponent<Animator>().SetBool("Fire", true);
-        PlayerManager.instance.player.GetComponent<Animator>().SetBool("Aim", false);
-        inAim = false;
-        crosshair.SetActive(false);
-        aimController.SetActive(false);
-        charecterController.SetActive(true);
-        arrow.SetActive(false);
-        StartCoroutine(FireArrow());
-
+        if (inAim == true)
+        {
+            PlayerManager.instance.player.GetComponent<Animator>().SetBool("Fire", true);
+            PlayerManager.instance.player.GetComponent<Animator>().SetBool("Aim", false);
+            inAim = false;
+            crosshair.SetActive(false);
+            aimController.SetActive(false);
+            charecterController.SetActive(true);
+            arrow.SetActive(false);
+            aimUnLock.enabled = false;
+            mainCamera.SetActive(true);
+            aimCamera.SetActive(false);
+            StartCoroutine(FireArrow());
+        }
     }
+
 
     [SerializeField]
     private Transform fireTransform;
@@ -82,5 +92,7 @@ public class PlayerMovements : MonoBehaviour
         projectile.GetComponent<ArrowProjectile>().Fire();
 
     }
+
+
 
 }
