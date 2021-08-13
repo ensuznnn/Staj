@@ -23,23 +23,23 @@ public class ArrowProjectile : MonoBehaviour
         source.GenerateImpulse(Camera.main.transform.forward);
 
     }
-    /*
+    
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.name != "Player")
         {
-            rBody.isKinematic = true;
+            rigidbody.isKinematic = true;
             StartCoroutine(Countdown());
         }
     }
 
     IEnumerator Countdown()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(100);
         Destroy(gameObject);
     }
 
-    */
+    
 
    
 }

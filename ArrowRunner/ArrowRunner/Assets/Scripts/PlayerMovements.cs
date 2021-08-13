@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class PlayerMovements : MonoBehaviour
 {
-    private Animator animator;
     public Transform arrowBone;
     public GameObject arrowPrefab;
     public Button aimButton;
@@ -18,11 +17,12 @@ public class PlayerMovements : MonoBehaviour
     public GameObject look;
     public GameObject mainCamera;
     public GameObject aimCamera;
+    public GameObject arrow;
     private void Start()
     {
         Button aim = aimButton.GetComponent<Button>();
         Button attack = attackButton.GetComponent<Button>();
-        animator = GetComponent<Animator>();
+       
     }
 
 
@@ -30,7 +30,8 @@ public class PlayerMovements : MonoBehaviour
     {
 
         if (inAim == false)
-        {       
+        {
+            arrow.SetActive(true);
             aimController.SetActive(true);
             charecterController.SetActive(false);
             mainCamera.SetActive(false);
@@ -42,26 +43,28 @@ public class PlayerMovements : MonoBehaviour
         }
         else
         {
-          
+            arrow.SetActive(false);
             crosshair.SetActive(false);
             aimController.SetActive(false);
             charecterController.SetActive(true);
             mainCamera.SetActive(true);
             aimCamera.SetActive(false);
             PlayerManager.instance.player.GetComponent<Animator>().SetBool("Fire", false);
-                PlayerManager.instance.player.GetComponent<Animator>().SetBool("Aim", false);
-                inAim = false;
+            PlayerManager.instance.player.GetComponent<Animator>().SetBool("Aim", false);
+            inAim = false;
         }
     }
 
     public void AttackAnimation()
     {
-
+        
         PlayerManager.instance.player.GetComponent<Animator>().SetBool("Fire", true);
         PlayerManager.instance.player.GetComponent<Animator>().SetBool("Aim", false);
         inAim = false;
         crosshair.SetActive(false);
         aimController.SetActive(false);
+        charecterController.SetActive(true);
+        arrow.SetActive(false);
         StartCoroutine(FireArrow());
 
     }
