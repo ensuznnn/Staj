@@ -282,5 +282,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ceacca9bbfb7a341ad870c04c93a761, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbody: {fileID: 1398175234702782430}
+  rigidbody: {fileID: 0}
   force: 5
