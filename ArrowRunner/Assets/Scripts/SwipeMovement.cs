@@ -8,9 +8,13 @@ public class SwipeMovement : MonoBehaviour
     public Attack attack;
     public Transform player;
     private Vector3 desiredPosition;
+    private Vector3 forwardMove;
 
     public void Update()
     {
+        forwardMove += Vector3.forward * 1;
+        desiredPosition.Set(desiredPosition.x, desiredPosition.y,forwardMove.z);
+
         if(swipeManager.SwipeLeft)
         {
             if (player.transform.position.x > -1.75)
