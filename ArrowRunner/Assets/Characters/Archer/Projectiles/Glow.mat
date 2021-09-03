@@ -117,7 +117,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_53E780FC: {r: 0.9609811, g: 1, b: 0, a: 1}
+    - Color_53E780FC: {r: 1, g: 0, b: 0.8847189, a: 1}
     - Color_B1DA60E1: {r: 0.7490196, g: 0.64705884, b: 0, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

@@ -5,9 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
-  - Joystick
   - Projectile
   - Arrow
+  - Collectible
+  - Boss
+  - Obstacle
+  - Wall
   layers:
   - Default
   - TransparentFX
